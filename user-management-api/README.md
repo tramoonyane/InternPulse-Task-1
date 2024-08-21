@@ -1,32 +1,53 @@
-<------------------User Management API-------------------->
+User Management API
+
 A RESTful API for managing user data, built with Node.js, Express, and MongoDB. This API provides endpoints to create, read, update, and delete user records using an in-memory MongoDB database for testing purposes.
 
-<------------------Table of Contents-------------->
+Table of Contents
+
 Features
+
 Technologies Used
+
 Installation
+
 Configuration
+
 API Endpoints
+
 Create User
+
 Get Users
+
 Get User by ID
+
 Update User
+
 Delete User
+
 Testing
+
 Using curl
+
 Using Invoke-WebRequest
+
 Contributing
+
 License
+
 Features
+
 Full CRUD functionality for user records.
+
 In-memory MongoDB setup for testing and development.
+
 Technologies Used
 Node.js: JavaScript runtime for server-side applications.
 Express: Web framework for building APIs.
 MongoDB: NoSQL database for data storage.
 mongodb-memory-server: In-memory MongoDB server for testing.
 Mongoose: ODM (Object Data Modeling) library for MongoDB and Node.js.
-<----------Installation---------------->
+
+Installation
 Clone the Repository
 
 bash
