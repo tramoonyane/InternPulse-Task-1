@@ -1,14 +1,20 @@
 // src/server.js
 
 const app = require('./app');
-const { startDatabase } = require('./config/db');
+const { startDatabase, stopDatabase } = require('./config/db');
 
 const PORT = process.env.PORT || 3000;
 
-startDatabase().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-}).catch(err => {
-  console.error('Failed to start the server', err);
-});
+const startServer = async () => {
+    try {
+        await startDatabase();
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Failed to start server', error);
+        process.exit(1);
+    }
+};
+
+startServer();

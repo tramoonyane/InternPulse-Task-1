@@ -1,24 +1,37 @@
+// src/config/db.js
+
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 
-let mongoServer;
+let mongod;
 
-const startDatabase = async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
+async function startDatabase() {
+    try {
+        mongod = await MongoMemoryServer.create();
+        const uri = mongod.getUri();
+        await mongoose.connect(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Connected to the in-memory database successfully');
+    } catch (error) {
+        console.error('Failed to connect to the database', error);
+        throw error;
+    }
+}
 
-  if (!uri) {
-    throw new Error('Failed to get MongoDB URI');
-  }
+async function stopDatabase() {
+    try {
+        await mongoose.disconnect();
+        await mongod.stop();
+        console.log('Disconnected from the in-memory database successfully');
+    } catch (error) {
+        console.error('Failed to disconnect from the database', error);
+        throw error;
+    }
+}
 
-  await mongoose.connect(uri);
-
-  console.log('Connected to in-memory MongoDB');
+module.exports = {
+    startDatabase,
+    stopDatabase,
 };
-
-const stopDatabase = async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
-};
-
-module.exports = { startDatabase, stopDatabase };
